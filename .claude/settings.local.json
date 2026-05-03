@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "mcp__stitch__list_projects",
+      "mcp__stitch__list_screens",
+      "WebFetch(domain:contribution.usercontent.google.com)",
+      "WebFetch(domain:api.anthropic.com)",
+      "mcp__stitch__get_project",
+      "Bash(dir \"c:\\\\Users\\\\valen\\\\GTEC\\\\\" /s /b)",
+      "PowerShell(gallery-dl --simulate --no-download \"https://www.facebook.com/profile.php?id=100064182815858/photos\" 2>&1)"
+    ]
+  }
+}

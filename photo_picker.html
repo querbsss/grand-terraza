@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Photo Picker · Grand Terraza</title>
+<style>
+  :root {
+    --plum: #2f0014; --plum-soft: #4e0d29; --gold: #b8893a; --gold-pale: #f0dfb6;
+    --bg: #14000a;
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: #fff; font-family: 'Segoe UI', sans-serif; padding-bottom: 4rem; }
+  header { padding: 1.25rem 1.5rem; border-bottom: 1px solid rgba(184,137,58,0.25); display: flex; justify-content: space-between; align-items: center; gap: 1rem; flex-wrap: wrap; position: sticky; top: 0; background: var(--bg); z-index: 50; }
+  h1 { margin: 0; color: var(--gold-pale); font-size: 18px; font-weight: 500; }
+  .hint { color: rgba(255,255,255,0.55); font-size: 12px; }
+
+  /* Slots row */
+  .slots {
+    display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px; padding: 1rem 1.5rem; background: rgba(47,0,20,0.4);
+  }
+  .slot {
+    position: relative; aspect-ratio: 4/3; border-radius: 6px; overflow: hidden;
+    background: var(--plum-soft); cursor: pointer;
+    border: 2px solid transparent; transition: border 0.15s ease;
+  }
+  .slot:hover { border-color: rgba(184,137,58,0.5); }
+  .slot.is-active { border-color: var(--gold); box-shadow: 0 0 0 4px rgba(184,137,58,0.25); }
+  .slot img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0.55; }
+  .slot.is-active img, .slot:hover img { opacity: 0.85; }
+  .slot__label { position: absolute; inset: auto 0 0 0; background: linear-gradient(to top, rgba(20,0,8,0.92), rgba(20,0,8,0)); padding: 1.5rem 0.6rem 0.5rem; font-size: 11px; line-height: 1.3; }
+  .slot__label b { color: var(--gold-pale); display: block; margin-bottom: 2px; }
+  .slot__pending { position: absolute; top: 6px; right: 6px; background: var(--gold); color: var(--plum); font-size: 10px; padding: 2px 6px; border-radius: 4px; font-weight: 600; }
+
+  /* Toolbar */
+  .toolbar { padding: 0.75rem 1.5rem; display: flex; gap: 0.75rem; flex-wrap: wrap; align-items: center; border-top: 1px solid rgba(184,137,58,0.15); border-bottom: 1px solid rgba(184,137,58,0.15); }
+  .toolbar input { background: rgba(0,0,0,0.4); border: 1px solid rgba(184,137,58,0.3); color: #fff; padding: 0.45rem 0.8rem; border-radius: 4px; font-size: 13px; min-width: 240px; }
+  .btn { background: var(--gold); color: var(--plum); border: none; padding: 0.5rem 1rem; border-radius: 4px; font-weight: 600; font-size: 12px; letter-spacing: 0.04em; text-transform: uppercase; cursor: pointer; }
+  .btn:disabled { opacity: 0.35; cursor: not-allowed; }
+  .btn-ghost { background: transparent; color: var(--gold-pale); border: 1px solid rgba(184,137,58,0.4); }
+  .pending-count { color: var(--gold-pale); font-size: 12px; margin-left: auto; }
+
+  /* Grid */
+  #grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 6px; padding: 1rem 1.5rem; }
+  .item { position: relative; aspect-ratio: 1; overflow: hidden; border-radius: 4px; background: var(--plum); cursor: pointer; }
+  .item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.25s ease; }
+  .item:hover img { transform: scale(1.06); }
+  .item.is-disabled { cursor: not-allowed; }
+  .item.is-disabled img { opacity: 0.35; }
+  .item__check {
+    position: absolute; top: 4px; right: 4px; width: 22px; height: 22px;
+    border-radius: 50%; background: var(--gold); color: var(--plum);
+    display: none; align-items: center; justify-content: center; font-size: 14px; font-weight: 700;
+  }
+  .item.is-assigned .item__check { display: flex; }
+  .item.is-flash { outline: 3px solid var(--gold); outline-offset: -3px; }
+
+  /* Modal */
+  .modal { position: fixed; inset: 0; background: rgba(0,0,0,0.85); display: none; align-items: center; justify-content: center; z-index: 100; padding: 1rem; }
+  .modal.is-open { display: flex; }
+  .modal__inner { background: var(--plum); border: 1px solid rgba(184,137,58,0.3); border-radius: 8px; max-width: 720px; width: 100%; padding: 1.5rem; max-height: 90vh; overflow: auto; }
+  .modal h2 { color: var(--gold-pale); margin-top: 0; font-size: 16px; }
+  .modal pre { background: rgba(0,0,0,0.5); border: 1px solid rgba(184,137,58,0.2); padding: 1rem; border-radius: 4px; font-size: 11px; line-height: 1.5; white-space: pre-wrap; word-break: break-all; color: #f0dfb6; max-height: 50vh; overflow: auto; }
+  .modal__actions { display: flex; gap: 0.5rem; justify-content: flex-end; margin-top: 1rem; flex-wrap: wrap; }
+
+  .empty { padding: 4rem; text-align: center; color: rgba(255,255,255,0.4); grid-column: 1/-1; }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Grand Terraza · Photo Picker</h1>
+  <span class="hint">1. Click a slot · 2. Click a photo to assign it · 3. Export & run script</span>
+</header>
+
+<!-- Slot row -->
+<div id="slots" class="slots"></div>
+
+<!-- Toolbar -->
+<div class="toolbar">
+  <input id="search" type="search" placeholder="Filter by filename…">
+  <button id="clearBtn" class="btn btn-ghost">Clear pending</button>
+  <span id="pendingCount" class="pending-count">0 pending</span>
+  <button id="exportBtn" class="btn" disabled>Export PowerShell script</button>
+</div>
+
+<!-- Photo grid -->
+<div id="grid"></div>
+
+<!-- Modal for export -->
+<div id="modal" class="modal" onclick="if(event.target===this)closeModal()">
+  <div class="modal__inner">
+    <h2>Copy these commands into PowerShell</h2>
+    <p style="color:rgba(255,255,255,0.6);font-size:12px;line-height:1.5">Run from <code>c:\Users\valen\GTEC\</code> — copies your selected photos over the current slots, then you should re-run <code>python assign_photos.py --write</code> if filenames changed (they don't — same destinations).</p>
+    <pre id="scriptOut"></pre>
+    <div class="modal__actions">
+      <button class="btn btn-ghost" onclick="closeModal()">Close</button>
+      <button class="btn" id="copyBtn">Copy to clipboard</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const SLOTS = [
+  { dest: 'images/hero/hero.jpg',                     label: 'Hero (fullscreen)' },
+  { dest: 'images/about/about-portrait.jpg',          label: 'About — main portrait' },
+  { dest: 'images/about/about-detail.jpg',            label: 'About — detail overlay' },
+  { dest: 'images/spaces/space-grand-hall.jpg',       label: 'The Grand Hall' },
+  { dest: 'images/spaces/space-garden-terraza.jpg',   label: 'The Garden Terraza' },
+  { dest: 'images/spaces/space-bridal-quarters.jpg',  label: 'The Bridal Quarters' },
+  { dest: 'images/spaces/space-oak-pavilion.jpg',     label: 'The Oak Pavilion' },
+  { dest: 'images/gallery/gallery-01-ceremony.jpg',   label: 'Gallery 1 — tall left' },
+  { dest: 'images/gallery/gallery-02-reception.jpg',  label: 'Gallery 2 — wide top' },
+  { dest: 'images/gallery/gallery-03-bride.jpg',      label: 'Gallery 3 — tall centre' },
+  { dest: 'images/gallery/gallery-04-lights.jpg',     label: 'Gallery 4' },
+  { dest: 'images/gallery/gallery-05-florals.jpg',    label: 'Gallery 5' },
+  { dest: 'images/gallery/gallery-06-dance.jpg',      label: 'Gallery 6 — tall right' },
+  { dest: 'images/gallery/gallery-07-tablescape.jpg', label: 'Gallery 7 — wide bottom' },
+];
+
+let photos = [];     // array of relative paths
+let activeSlot = null;
+const pending = new Map();   // dest -> source path
+
+const slotsEl = document.getElementById('slots');
+const gridEl = document.getElementById('grid');
+const searchEl = document.getElementById('search');
+const exportBtn = document.getElementById('exportBtn');
+const clearBtn = document.getElementById('clearBtn');
+const pendingCountEl = document.getElementById('pendingCount');
+
+// Render slot row
+function renderSlots() {
+  slotsEl.innerHTML = '';
+  SLOTS.forEach((s, i) => {
+    const div = document.createElement('div');
+    div.className = 'slot' + (activeSlot === i ? ' is-active' : '');
+    const previewSrc = pending.get(s.dest) || s.dest;
+    div.innerHTML = `
+      <img src="${previewSrc}" onerror="this.style.display='none'">
+      ${pending.has(s.dest) ? '<span class="slot__pending">PENDING</span>' : ''}
+      <div class="slot__label"><b>${s.label}</b>${s.dest.split('/').pop()}</div>
+    `;
+    div.onclick = () => {
+      activeSlot = activeSlot === i ? null : i;
+      renderSlots();
+      renderGrid();
+    };
+    slotsEl.appendChild(div);
+  });
+  pendingCountEl.textContent = `${pending.size} pending`;
+  exportBtn.disabled = pending.size === 0;
+}
+
+function renderGrid() {
+  const filter = searchEl.value.trim().toLowerCase();
+  gridEl.innerHTML = '';
+
+  const visible = filter
+    ? photos.filter(p => p.toLowerCase().includes(filter))
+    : photos;
+
+  if (visible.length === 0) {
+    gridEl.innerHTML = '<div class="empty">No photos match.</div>';
+    return;
+  }
+
+  // Render only first 600 for perf, rest as user scrolls
+  const limit = Math.min(visible.length, 600);
+  for (let i = 0; i < limit; i++) {
+    const p = visible[i];
+    const fname = p.split('/').pop();
+    const item = document.createElement('div');
+    item.className = 'item' + (activeSlot === null ? ' is-disabled' : '');
+    if (activeSlot !== null && pending.get(SLOTS[activeSlot].dest) === p) {
+      item.classList.add('is-assigned');
+    }
+    item.innerHTML = `<img loading="lazy" src="${p}" alt=""><span class="item__check">✓</span>`;
+    item.title = fname;
+    item.onclick = () => {
+      if (activeSlot === null) {
+        alert('Click a slot above first, then pick a photo for it.');
+        return;
+      }
+      const dest = SLOTS[activeSlot].dest;
+      pending.set(dest, p);
+      item.classList.add('is-flash');
+      setTimeout(() => item.classList.remove('is-flash'), 600);
+      renderSlots();
+    };
+    gridEl.appendChild(item);
+  }
+
+  if (visible.length > limit) {
+    const more = document.createElement('div');
+    more.className = 'empty';
+    more.textContent = `Showing ${limit} of ${visible.length} — type in the filter to narrow down.`;
+    gridEl.appendChild(more);
+  }
+}
+
+clearBtn.onclick = () => { pending.clear(); renderSlots(); renderGrid(); };
+
+searchEl.oninput = renderGrid;
+
+// Export to PowerShell script
+exportBtn.onclick = () => {
+  const lines = ['# Run from c:\\Users\\valen\\GTEC\\', ''];
+  for (const [dest, src] of pending.entries()) {
+    const winSrc = src.replace(/\//g, '\\');
+    const winDest = dest.replace(/\//g, '\\');
+    lines.push(`Copy-Item -Path "${winSrc}" -Destination "${winDest}" -Force`);
+  }
+  document.getElementById('scriptOut').textContent = lines.join('\n');
+  document.getElementById('modal').classList.add('is-open');
+};
+
+document.getElementById('copyBtn').onclick = () => {
+  const text = document.getElementById('scriptOut').textContent;
+  navigator.clipboard.writeText(text).then(
+    () => { document.getElementById('copyBtn').textContent = 'Copied!'; setTimeout(() => document.getElementById('copyBtn').textContent = 'Copy to clipboard', 1500); },
+    () => {
+      // Fallback for file:// origin where clipboard may be blocked
+      const ta = document.createElement('textarea');
+      ta.value = text; document.body.appendChild(ta); ta.select();
+      try { document.execCommand('copy'); document.getElementById('copyBtn').textContent = 'Copied!'; }
+      catch(e) { alert('Could not copy automatically — please select and copy the text manually.'); }
+      ta.remove();
+      setTimeout(() => document.getElementById('copyBtn').textContent = 'Copy to clipboard', 1500);
+    }
+  );
+};
+
+function closeModal() { document.getElementById('modal').classList.remove('is-open'); }
+
+// Load photos from JSON
+fetch('photos.json')
+  .then(r => r.json())
+  .then(arr => { photos = arr; renderSlots(); renderGrid(); })
+  .catch(err => {
+    gridEl.innerHTML = `<div class="empty">Could not load <code>photos.json</code>. Open this file via a local server (<code>python -m http.server 8080</code>) and visit http://localhost:8080/photo_picker.html</div>`;
+    renderSlots();
+  });
+</script>
+</body>
+</html>

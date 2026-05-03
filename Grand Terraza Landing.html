@@ -1,0 +1,1590 @@
+<!DOCTYPE html>
+
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>Grand Terraza Event Center · Taal, Batangas</title>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Serif:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&amp;family=Manrope:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/>
+<style>
+    /* ─── Design Tokens ─── */
+    :root {
+      --surface: #fff8f5;
+      --surface-dim: #e1d8d4;
+      --surface-container-low: #fbf2ed;
+      --surface-container: #f5ece7;
+      --surface-container-high: #efe6e2;
+      --surface-container-highest: #e9e1dc;
+      --on-surface: #1e1b18;
+      --on-surface-variant: #534347;
+      --inverse-surface: #34302c;
+      --inverse-on-surface: #f8efea;
+      --outline: #857277;
+      --outline-variant: #d8c1c6;
+      --primary: #2f0014;
+      --primary-soft: #4e0d29;
+      --primary-tint: #762e48;
+      --on-primary: #ffffff;
+      --gold: #b8893a;
+      --gold-soft: #d6ad65;
+      --gold-pale: #f0dfb6;
+      --secondary-fixed: #ffdea5;
+      --error: #ba1a1a;
+      --container-max: 1280px;
+      --gutter: 2rem;
+      --section-padding: 8rem;
+      --r-sm: 0.25rem;
+      --r-md: 0.5rem;
+      --r-lg: 0.75rem;
+      --r-xl: 1rem;
+      --r-2xl: 1.5rem;
+      --r-full: 9999px;
+      --shadow-sm: 0 4px 12px rgba(47, 0, 20, 0.05);
+      --shadow-md: 0 12px 32px rgba(47, 0, 20, 0.08);
+      --shadow-lg: 0 24px 60px rgba(47, 0, 20, 0.10);
+    }
+
+    /* ─── Reset & Base ─── */
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body {
+      margin: 0; padding: 0;
+      background: var(--surface);
+      color: var(--on-surface);
+      font-family: 'Manrope', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+      scroll-behavior: smooth;
+    }
+    img { display: block; max-width: 100%; }
+    button { font-family: inherit; cursor: pointer; border: none; background: none; color: inherit; }
+    a { color: inherit; text-decoration: none; }
+    ul { list-style: none; margin: 0; padding: 0; }
+    h1, h2, h3, h4 { margin: 0; }
+
+    /* ─── Typography ─── */
+    .t-display-xl {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(48px, 7vw, 84px);
+      font-weight: 600;
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+    }
+    .t-headline-lg {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(36px, 4vw, 52px);
+      font-weight: 500;
+      line-height: 1.1;
+      letter-spacing: -0.01em;
+    }
+    .t-headline-md {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(24px, 2.4vw, 32px);
+      font-weight: 500;
+      line-height: 1.2;
+    }
+    .t-body-lg {
+      font-family: 'Manrope', sans-serif;
+      font-size: 18px;
+      line-height: 1.6;
+      color: var(--on-surface-variant);
+    }
+    .t-body-md {
+      font-family: 'Manrope', sans-serif;
+      font-size: 16px;
+      line-height: 1.55;
+      color: var(--on-surface-variant);
+    }
+    .t-label {
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+    .t-eyebrow {
+      font-family: 'Manrope', sans-serif;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--gold);
+    }
+    .italic-serif {
+      font-family: 'Noto Serif', serif;
+      font-style: italic;
+      font-weight: 400;
+    }
+    .gold { color: var(--gold); }
+    .text-center { text-align: center; }
+
+    /* ─── Layout ─── */
+    .container { max-width: var(--container-max); margin: 0 auto; padding: 0 var(--gutter); }
+    .section { padding: clamp(4rem, 8vw, 8rem) 0; }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.95rem 1.6rem;
+      border-radius: var(--r-full);
+      font-family: 'Manrope', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      transition: all 0.25s ease;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .btn-primary { background: var(--primary); color: var(--on-primary); border: 1px solid var(--gold); }
+    .btn-primary:hover { background: var(--primary-soft); transform: translateY(-1px); box-shadow: var(--shadow-md); }
+    .btn-ghost { background: transparent; color: var(--primary); border: 1.5px solid var(--primary); }
+    .btn-ghost:hover { background: var(--primary); color: var(--on-primary); }
+    .btn-gold { background: var(--gold); color: var(--primary); border: 1px solid var(--gold); }
+    .btn-gold:hover { background: var(--gold-soft); }
+
+    /* ─── Gold Flourish ─── */
+    .flourish {
+      display: flex; align-items: center; justify-content: center; gap: 0.75rem;
+      color: var(--gold);
+    }
+    .flourish::before, .flourish::after {
+      content: ''; width: 28px; height: 1px; background: var(--gold); opacity: 0.6;
+    }
+
+    /* ─── Image Placeholders ─── */
+    .placeholder {
+      position: relative;
+      background: repeating-linear-gradient(135deg, var(--surface-container) 0 14px, var(--surface-container-high) 14px 28px);
+      display: flex; align-items: center; justify-content: center;
+      color: var(--on-surface-variant);
+      font-family: ui-monospace, monospace;
+      font-size: 11px; letter-spacing: 0.05em; text-align: center;
+      padding: 1rem; overflow: hidden;
+    }
+    .placeholder.tone-plum {
+      background: repeating-linear-gradient(135deg, #3a0d24 0 14px, #4e0d29 14px 28px);
+      color: rgba(255,255,255,0.6);
+    }
+    .placeholder.tone-cream {
+      background: repeating-linear-gradient(135deg, var(--surface-container-low) 0 14px, var(--surface-container) 14px 28px);
+    }
+    .placeholder.tone-gold {
+      background: repeating-linear-gradient(135deg, #e6c890 0 14px, #d6ad65 14px 28px);
+      color: rgba(47,0,20,0.55);
+    }
+
+    /* ─── Shapes ─── */
+    .shape-arch { border-radius: 50% 50% 8px 8px / 35% 35% 8px 8px; }
+    .shape-stadium { border-radius: 9999px; }
+    .shape-stadium-vert { border-radius: 9999px / 50%; }
+    .shape-rounded { border-radius: var(--r-2xl); }
+
+    /* ─── Gold Ring ─── */
+    .gold-ring {
+      position: absolute; border: 1px solid var(--gold); border-radius: 50%;
+      pointer-events: none; opacity: 0.4;
+    }
+
+    /* ─── Animation ─── */
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+    .fade-in { animation: fadeUp 0.7s ease both; }
+    .gt-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--gold); display: inline-block; }
+
+    /* ─── Section Header ─── */
+    .gt-section-head { display: flex; flex-direction: column; gap: 1rem; margin-bottom: 4rem; max-width: 760px; }
+
+    /* ═══════════════════════════════════════════
+       NAV
+    ═══════════════════════════════════════════ */
+    .gt-nav {
+      position: fixed; top: 0; left: 0; right: 0;
+      z-index: 100; padding: 1.25rem 0; transition: all 0.3s ease;
+    }
+    .gt-nav--scrolled {
+      background: rgba(255, 248, 245, 0.88);
+      backdrop-filter: blur(14px); -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 1px 0 rgba(47, 0, 20, 0.06); padding: 0.85rem 0;
+    }
+    .gt-nav__inner { display: flex; align-items: center; justify-content: space-between; gap: 2rem; }
+    .gt-nav__brand { display: flex; align-items: center; gap: 0.75rem; color: var(--surface); }
+    .gt-nav--scrolled .gt-nav__brand { color: var(--primary); }
+    .gt-nav__monogram {
+      width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--gold);
+      display: grid; place-items: center;
+      font-family: 'Noto Serif', serif; font-style: italic; font-size: 18px;
+      color: var(--gold); background: rgba(47, 0, 20, 0.4);
+    }
+    .gt-nav--scrolled .gt-nav__monogram { background: var(--primary); }
+    .gt-nav__name { font-family: 'Noto Serif', serif; display: flex; flex-direction: column; line-height: 1; }
+    .gt-nav__name-sub { font-weight: 600; letter-spacing: 0.04em; font-size: 12px; text-transform: uppercase; opacity: 0.8; }
+    .gt-nav__name-main { font-size: 22px; }
+    .gt-nav__logo { height: 48px; width: auto; object-fit: contain; transition: filter 0.3s ease; filter: brightness(0) invert(1); }
+    .gt-nav--scrolled .gt-nav__logo { filter: none; }
+    .gt-nav__links { display: flex; gap: 2.2rem; }
+    .gt-nav__links a { color: var(--surface); position: relative; font-size: 12px; letter-spacing: 0.18em; font-family: 'Manrope', sans-serif; font-weight: 600; text-transform: uppercase; }
+    .gt-nav--scrolled .gt-nav__links a { color: var(--primary); }
+    .gt-nav__links a:hover { color: var(--gold); }
+    .gt-nav__toggle {
+      display: none; width: 44px; height: 44px;
+      flex-direction: column; justify-content: center; align-items: center; gap: 5px;
+      z-index: 102; position: relative; padding: 0;
+    }
+    .gt-nav__toggle span {
+      display: block; width: 22px; height: 1.5px;
+      background: var(--surface); transition: all 0.3s ease;
+    }
+    .gt-nav--scrolled .gt-nav__toggle span { background: var(--primary); }
+    .gt-nav--open .gt-nav__toggle span { background: var(--surface) !important; }
+    .gt-nav--open .gt-nav__toggle span:nth-child(1) { transform: translateY(6.5px) rotate(45deg); }
+    .gt-nav--open .gt-nav__toggle span:nth-child(2) { opacity: 0; }
+    .gt-nav--open .gt-nav__toggle span:nth-child(3) { transform: translateY(-6.5px) rotate(-45deg); }
+    .gt-nav__drawer {
+      position: fixed; top: 0; left: 0; right: 0;
+      height: 100vh; height: 100dvh;
+      background: var(--primary); z-index: 101;
+      display: flex; flex-direction: column; justify-content: center; align-items: center;
+      gap: 2rem; padding: 5rem 2rem 3rem;
+      opacity: 0; pointer-events: none; transform: translateY(-12px);
+      transition: opacity 0.3s ease, transform 0.3s ease;
+    }
+    .gt-nav__drawer.is-open { opacity: 1; pointer-events: auto; transform: translateY(0); }
+    .gt-nav__drawer-links { display: flex; flex-direction: column; gap: 1.5rem; text-align: center; }
+    .gt-nav__drawer-links a {
+      color: var(--surface);
+      font-size: clamp(28px, 7vw, 40px);
+      font-family: 'Noto Serif', serif; font-style: italic;
+      display: inline-flex; align-items: baseline;
+    }
+    .gt-nav__drawer-links a:hover { color: var(--gold-pale); }
+
+    @media (max-width: 1024px) {
+      .gt-nav__links, .gt-nav__cta { display: none; }
+      .gt-nav__toggle { display: flex; }
+    }
+
+    /* ═══════════════════════════════════════════
+       HERO
+    ═══════════════════════════════════════════ */
+    .gt-hero {
+      position: relative; min-height: 100vh; color: var(--surface);
+      isolation: isolate; overflow: hidden;
+    }
+    .gt-hero__bg { position: absolute; inset: 0; z-index: -1; }
+    .gt-hero__img { width: 100%; height: 100%; }
+    .gt-hero__scrim {
+      position: absolute; inset: 0;
+      background: linear-gradient(180deg, rgba(47,0,20,0.55) 0%, rgba(47,0,20,0.35) 40%, rgba(47,0,20,0.75) 100%);
+    }
+    .gt-hero__watermark {
+      position: absolute; top: 14%; left: 50%; transform: translateX(-50%);
+      font-size: clamp(120px, 22vw, 320px);
+      color: rgba(255, 248, 245, 0.07);
+      letter-spacing: -0.02em; pointer-events: none; user-select: none;
+      font-family: 'Noto Serif', serif; font-style: italic;
+    }
+    .gt-hero__content { padding-top: 22vh; padding-bottom: 14rem; max-width: 920px; }
+    .gt-hero__panel {
+      position: relative; max-width: 760px;
+      padding: 2.25rem 2.5rem 2.5rem;
+      border-left: 1px solid rgba(184,137,58,0.55);
+      border-radius: var(--r-2xl);
+      overflow: hidden;
+    }
+    .gt-hero__panel::before {
+      content: ''; position: absolute; inset: 0; z-index: -1;
+      background: linear-gradient(105deg, rgba(20,0,8,0.62) 0%, rgba(20,0,8,0.42) 55%, rgba(20,0,8,0) 100%);
+      backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
+      border-radius: var(--r-2xl);
+      mask-image: linear-gradient(105deg, #000 0%, #000 70%, transparent 100%);
+      -webkit-mask-image: linear-gradient(105deg, #000 0%, #000 70%, transparent 100%);
+    }
+    .gt-hero__eyebrow { display: inline-flex; align-items: center; gap: 0.6rem; color: var(--gold-pale); margin-bottom: 1.75rem; }
+    .gt-hero__title-stack { position: relative; margin: 0 0 1.5rem; min-height: 1em; }
+    .gt-hero__title { margin: 0; color: var(--surface); text-shadow: 0 2px 24px rgba(0,0,0,0.45); }
+    .gt-hero__title--a, .gt-hero__title--b {
+      animation: heroTitleRotate 9s ease-in-out infinite;
+    }
+    .gt-hero__title--b {
+      position: absolute; inset: 0;
+      animation-delay: -4.5s;
+    }
+    @keyframes heroTitleRotate {
+      0%, 42%   { opacity: 1; transform: translateY(0); filter: blur(0); }
+      48%, 92%  { opacity: 0; transform: translateY(-12px); filter: blur(4px); }
+      98%, 100% { opacity: 1; transform: translateY(0); filter: blur(0); }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .gt-hero__title--a, .gt-hero__title--b { animation: none; }
+      .gt-hero__title--b { display: none; }
+    }
+    .gt-hero__lede { max-width: 560px; color: rgba(255,248,245,0.92); margin-bottom: 2.5rem; text-shadow: 0 1px 12px rgba(0,0,0,0.4); }
+    .gt-hero__ctas { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .gt-hero__ghost { background: rgba(255,248,245,0.08); color: var(--surface); border-color: var(--surface); }
+    .gt-hero__ghost:hover { background: var(--surface); color: var(--primary); }
+    .gt-hero__strip {
+      position: absolute; bottom: 0; left: 0; right: 0;
+      background: rgba(20,0,8,0.55); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
+      border-top: 1px solid rgba(184,137,58,0.3);
+    }
+    .gt-hero__strip-inner {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 1rem; padding: 1.5rem 0;
+    }
+    .gt-hero__strip-item {
+      display: flex; gap: 1rem; align-items: flex-start;
+      padding: 0 1.25rem; border-left: 1px solid rgba(184,137,58,0.2);
+    }
+    .gt-hero__strip-item:first-child { border-left: none; }
+    .gt-hero__strip-num { font-family: 'Noto Serif', serif; font-style: italic; font-size: 24px; color: var(--gold); line-height: 1; }
+    .gt-hero__strip-d { font-size: 13px; color: rgba(255,248,245,0.7); margin-top: 0.3rem; line-height: 1.4; }
+
+    /* ═══════════════════════════════════════════
+       ABOUT
+    ═══════════════════════════════════════════ */
+    .gt-about__grid { display: grid; grid-template-columns: 1.05fr 1fr; gap: 6rem; align-items: center; }
+    .gt-about__media { position: relative; min-height: 580px; }
+    .gt-about__img-1 { width: 78%; aspect-ratio: 3/4; position: relative; z-index: 2; }
+    .gt-about__img-2 {
+      position: absolute; right: 0; bottom: 4rem; width: 56%; aspect-ratio: 4/3;
+      z-index: 3; border: 8px solid var(--surface);
+    }
+    .gt-about__copy { display: flex; flex-direction: column; gap: 1.25rem; align-items: flex-start; }
+    .gt-about__bullets {
+      border-top: 1px solid var(--outline-variant);
+      display: flex; flex-direction: column; gap: 1rem; width: 100%; margin: 1rem 0; padding: 0;
+    }
+    .gt-about__bullets li {
+      display: grid; grid-template-columns: 140px 1fr; gap: 1.5rem;
+      padding: 1rem 0; border-bottom: 1px solid var(--outline-variant); align-items: baseline;
+    }
+    .gt-about__b-k { font-size: 22px; font-style: italic; font-family: 'Noto Serif', serif; }
+
+    /* ═══════════════════════════════════════════
+       SPACES
+    ═══════════════════════════════════════════ */
+    .gt-spaces__grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 4rem 3rem; }
+    .gt-space { display: flex; flex-direction: column; gap: 1.25rem; min-width: 0; }
+    .gt-space:nth-child(1), .gt-space:nth-child(2) { margin-top: 4rem; }
+    .gt-space__img { width: 100%; aspect-ratio: 4/5; }
+    .gt-space__head { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+    .gt-space__num { font-size: 28px; }
+    .gt-space__meta { display: flex; align-items: center; gap: 0.75rem; color: var(--on-surface-variant); flex-wrap: wrap; }
+    .gt-space__dot { width: 4px; height: 4px; border-radius: 50%; background: var(--gold); }
+    .gt-space__link {
+      color: var(--primary); display: inline-flex; align-items: center; gap: 0.5rem;
+      align-self: flex-start; padding-bottom: 4px; border-bottom: 1px solid var(--gold);
+      transition: gap 0.2s ease;
+    }
+    .gt-space__link:hover { gap: 0.9rem; }
+
+    /* ═══════════════════════════════════════════
+       STATS
+    ═══════════════════════════════════════════ */
+    .gt-stats {
+      background: var(--primary); padding: 5rem 0;
+      color: var(--surface); position: relative; overflow: hidden;
+    }
+    .gt-stats::before {
+      content: ''; position: absolute; top: -50%; left: -10%;
+      width: 380px; height: 380px;
+      border: 1px solid rgba(184,137,58,0.18); border-radius: 50%; pointer-events: none;
+    }
+    .gt-stats::after {
+      content: ''; position: absolute; bottom: -40%; right: -5%;
+      width: 280px; height: 280px;
+      border: 1px solid rgba(184,137,58,0.18); border-radius: 50%; pointer-events: none;
+    }
+    .gt-stats__grid {
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 2rem; position: relative; z-index: 1;
+    }
+    .gt-stat { display: flex; flex-direction: column; align-items: center; gap: 1rem; }
+    .gt-stat__ring { width: 140px; height: 140px; border-radius: 50%; border: 1px solid var(--gold); display: grid; place-items: center; }
+    .gt-stat__n { font-family: 'Noto Serif', serif; font-size: 56px; font-style: italic; color: var(--gold-pale); }
+    .gt-stat__l { color: rgba(255,248,245,0.7); text-align: center; font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+
+    /* ═══════════════════════════════════════════
+       GALLERY
+    ═══════════════════════════════════════════ */
+    .gt-gallery__grid {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      grid-auto-rows: 180px; gap: 1.25rem;
+    }
+    .gt-gallery__tile { overflow: hidden; }
+    .gt-gallery__tile--tall { grid-row: span 2; }
+    .gt-gallery__tile--wide { grid-column: span 2; }
+    .gt-gallery__tile > div,
+    .gt-gallery__tile > img { transition: transform 0.5s ease; height: 100%; }
+    .gt-gallery__tile:hover > div,
+    .gt-gallery__tile:hover > img { transform: scale(1.04); }
+
+    /* ═══════════════════════════════════════════
+       PACKAGES
+    ═══════════════════════════════════════════ */
+    .gt-packages__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .gt-pkg {
+      position: relative; min-width: 0;
+      background: var(--surface-container-low);
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--r-2xl);
+      padding: 2.5rem 2rem;
+      display: flex; flex-direction: column; gap: 1rem;
+      transition: all 0.3s ease;
+    }
+    .gt-pkg:hover { transform: translateY(-4px); box-shadow: var(--shadow-lg); border-color: var(--gold); }
+    .gt-pkg--featured {
+      background: var(--primary); color: var(--surface);
+      border-color: var(--gold); transform: translateY(-12px);
+    }
+    .gt-pkg--featured:hover { transform: translateY(-16px); }
+    .gt-pkg--featured .t-headline-md { color: var(--surface); }
+    .gt-pkg--featured .t-body-md { color: rgba(255,248,245,0.75); }
+    .gt-pkg--featured .gt-pkg__sub { color: var(--gold-pale); }
+    .gt-pkg--featured .gt-pkg__price { color: var(--gold-pale); }
+    .gt-pkg__ribbon {
+      position: absolute; top: 1.25rem; right: 1.25rem;
+      background: var(--gold); color: var(--primary);
+      padding: 0.35rem 0.8rem; border-radius: var(--r-full); font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase;
+    }
+    .gt-pkg__sub { color: var(--gold); font-family: 'Manrope', sans-serif; font-size: 13px; font-weight: 600; letter-spacing: 0.14em; text-transform: uppercase; }
+    .gt-pkg__price-row {
+      display: flex; align-items: baseline; gap: 0.6rem;
+      border-top: 1px solid var(--outline-variant); border-bottom: 1px solid var(--outline-variant);
+      padding: 1rem 0; margin: 0.5rem 0;
+    }
+    .gt-pkg--featured .gt-pkg__price-row { border-color: rgba(184,137,58,0.3); }
+    .gt-pkg__price { font-family: 'Noto Serif', serif; font-size: 44px; font-style: italic; color: var(--primary); letter-spacing: -0.01em; }
+    .gt-pkg__items { display: flex; flex-direction: column; gap: 0.7rem; flex: 1; }
+    .gt-pkg__items li { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .gt-pkg__check { color: var(--gold); flex-shrink: 0; margin-top: 2px; }
+    .gt-pkg__cta { width: 100%; justify-content: center; margin-top: 0.5rem; white-space: normal; text-align: center; line-height: 1.3; }
+    .gt-pkg--featured .btn-ghost { border-color: var(--gold); color: var(--gold-pale); }
+    .gt-pkg--featured .btn-ghost:hover { background: var(--gold); color: var(--primary); }
+    .gt-pkg--featured .btn-primary { background: var(--gold); color: var(--primary); border-color: var(--gold-pale); }
+    .gt-packages__foot { text-align: center; margin-top: 3rem; color: var(--on-surface-variant); }
+
+    /* ═══════════════════════════════════════════
+       VENDORS
+    ═══════════════════════════════════════════ */
+    .gt-vendors { background: var(--surface-container-low); }
+    .gt-vendors__grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+    .gt-vendor {
+      background: var(--surface); border-radius: var(--r-2xl);
+      padding: 2rem; display: flex; flex-direction: column; gap: 1rem;
+      border: 1px solid var(--outline-variant);
+      transition: all 0.25s ease; min-width: 0;
+    }
+    .gt-vendor:hover { border-color: var(--gold); box-shadow: var(--shadow-md); }
+    .gt-vendor__row { display: flex; align-items: baseline; justify-content: space-between; }
+    .gt-vendor__count { font-family: 'Noto Serif', serif; font-size: 32px; font-style: italic; color: var(--gold); }
+    .gt-vendor__avatars {
+      display: flex; align-items: center; margin-top: auto;
+      padding-top: 1rem; border-top: 1px solid var(--outline-variant);
+    }
+    .gt-vendor__avatar {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 2px solid var(--surface); margin-left: -10px;
+    }
+    .gt-vendor__avatar:first-child { margin-left: 0; }
+    .gt-vendor__more { margin-left: 0.75rem; color: var(--gold); font-size: 13px; font-weight: 600; }
+
+    /* ═══════════════════════════════════════════
+       TESTIMONIALS
+    ═══════════════════════════════════════════ */
+    .gt-testimonials {
+      background: var(--primary); color: var(--surface);
+      padding: 6rem 0; position: relative; overflow: hidden;
+    }
+    .gt-testimonials::before {
+      content: ''; position: absolute; top: -100px; right: -100px;
+      width: 380px; height: 380px;
+      border: 1px solid rgba(184,137,58,0.2); border-radius: 50%;
+    }
+    .gt-testimonials__inner { position: relative; max-width: 880px; margin: 0 auto; text-align: center; }
+    .gt-testimonials__mark {
+      font-family: 'Noto Serif', serif; font-size: 120px; font-style: italic;
+      line-height: 0.7; color: var(--gold); opacity: 0.6; margin-bottom: 1rem;
+    }
+    .gt-testimonials__q {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(22px, 2.6vw, 34px); line-height: 1.4;
+      margin: 0 auto 2rem; color: var(--surface);
+      font-weight: 400; font-style: italic;
+    }
+    .gt-testimonials__attr { display: flex; flex-direction: column; gap: 0.4rem; }
+    .gt-testimonials__attr .italic-serif { font-size: 20px; color: var(--gold-pale); }
+    .gt-testimonials__attr .t-label { color: rgba(255,248,245,0.55); }
+    .gt-testimonials__nav { display: flex; justify-content: center; gap: 0.6rem; margin-top: 2.5rem; }
+    .gt-testimonials__dot { width: 32px; height: 2px; background: rgba(255,248,245,0.25); border: none; cursor: pointer; transition: background 0.2s ease; }
+    .gt-testimonials__dot.is-active { background: var(--gold); }
+    .gt-testimonials__slide { display: none; }
+    .gt-testimonials__slide.is-active { display: block; }
+
+    /* ═══════════════════════════════════════════
+       FAQ
+    ═══════════════════════════════════════════ */
+    .gt-faq__grid { display: grid; grid-template-columns: 1fr 1.4fr; gap: 5rem; align-items: start; }
+    .gt-faq__list { display: flex; flex-direction: column; }
+    .gt-faq__item { border-top: 1px solid var(--outline-variant); }
+    .gt-faq__item:last-child { border-bottom: 1px solid var(--outline-variant); }
+    .gt-faq__q {
+      display: grid; grid-template-columns: auto 1fr auto; gap: 1.25rem;
+      align-items: center; width: 100%; text-align: left; padding: 1.5rem 0;
+    }
+    .gt-faq__num { font-family: 'Noto Serif', serif; font-style: italic; font-size: 22px; color: var(--gold); }
+    .gt-faq__qt {
+      font-family: 'Noto Serif', serif;
+      font-size: clamp(18px, 2vw, 22px) !important;
+      font-weight: 500; margin: 0; transition: color 0.2s ease;
+    }
+    .gt-faq__item:hover .gt-faq__qt,
+    .gt-faq__item.is-open .gt-faq__qt { color: var(--primary); }
+    .gt-faq__icon {
+      width: 36px; height: 36px; border-radius: 50%;
+      border: 1px solid var(--gold); display: grid; place-items: center;
+      font-size: 18px; color: var(--gold);
+      font-family: 'Noto Serif', serif; flex-shrink: 0;
+    }
+    .gt-faq__a { display: grid; grid-template-rows: 0fr; transition: grid-template-rows 0.3s ease; }
+    .gt-faq__a > p { overflow: hidden; margin: 0; padding-left: 3rem; }
+    .gt-faq__item.is-open .gt-faq__a { grid-template-rows: 1fr; }
+    .gt-faq__item.is-open .gt-faq__a > p { padding-bottom: 1.5rem; }
+
+    /* ═══════════════════════════════════════════
+       BOOKING
+    ═══════════════════════════════════════════ */
+    .gt-book {
+      background: var(--primary); color: var(--surface);
+      position: relative; overflow: hidden;
+    }
+    .gt-book::before {
+      content: ''; position: absolute; top: 10%; left: -120px;
+      width: 320px; height: 320px;
+      border: 1px solid rgba(184,137,58,0.2); border-radius: 50%;
+    }
+    .gt-book::after {
+      content: ''; position: absolute; bottom: -100px; right: -80px;
+      width: 280px; height: 280px;
+      border: 1px solid rgba(184,137,58,0.2); border-radius: 50%;
+    }
+    .gt-book__grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 5rem;
+      position: relative; z-index: 1;
+    }
+    .gt-book__title { margin: 1rem 0 1.5rem; color: var(--surface); }
+    .gt-book__lede { color: rgba(255,248,245,0.78); max-width: 460px; }
+    .gt-book__contact { display: flex; flex-direction: column; gap: 1.25rem; margin: 2.5rem 0 0; }
+    .gt-book__contact li {
+      display: grid; grid-template-columns: 80px 1fr; gap: 1rem; align-items: baseline;
+      padding-bottom: 1rem; border-bottom: 1px solid rgba(184,137,58,0.2);
+      color: rgba(255,248,245,0.85);
+    }
+    .gt-book__contact .t-label { color: var(--gold-pale); }
+    .gt-book__form {
+      background: var(--surface); color: var(--on-surface);
+      border-radius: var(--r-2xl); padding: 2.5rem;
+      display: flex; flex-direction: column; gap: 1.25rem;
+      box-shadow: 0 30px 80px rgba(0,0,0,0.25);
+    }
+    .gt-book__row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .gt-field { display: flex; flex-direction: column; gap: 0.5rem; }
+    .gt-field .t-label { color: var(--primary); font-size: 11px; }
+    .gt-field input, .gt-field select, .gt-field textarea {
+      font-family: 'Manrope', sans-serif; font-size: 15px;
+      padding: 0.85rem 1rem;
+      border: 1px solid var(--outline-variant);
+      border-radius: var(--r-md);
+      background: var(--surface-container-low);
+      color: var(--on-surface); transition: all 0.2s ease;
+    }
+    .gt-field input:focus, .gt-field select:focus, .gt-field textarea:focus {
+      outline: none; border-color: var(--gold);
+      background: #fff; box-shadow: 0 0 0 3px rgba(184,137,58,0.15);
+    }
+    .gt-book__submit { width: 100%; justify-content: center; margin-top: 0.5rem; padding: 1.1rem 1.6rem; }
+    .gt-book__fine { text-align: center; font-size: 12px; color: var(--on-surface-variant); }
+
+    /* ═══════════════════════════════════════════
+       LOCATION MAP
+    ═══════════════════════════════════════════ */
+    .gt-map { background: var(--surface-container-low); }
+    .gt-map__embed {
+      width: 100%; height: 480px; border: none;
+      border-radius: var(--r-2xl); overflow: hidden;
+      box-shadow: var(--shadow-md);
+      display: block;
+    }
+    @media (max-width: 768px) {
+      .gt-map__embed { height: 320px; }
+    }
+
+    /* ═══════════════════════════════════════════
+       FOOTER
+    ═══════════════════════════════════════════ */
+    .gt-footer { background: #140008; color: var(--surface); padding: 4rem 0 2rem; }
+    .gt-footer__inner {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 4rem;
+      padding-bottom: 3rem; border-bottom: 1px solid rgba(184,137,58,0.2);
+    }
+    .gt-footer__brand { display: flex; align-items: center; gap: 1rem; }
+    .gt-footer__mono {
+      width: 56px; height: 56px; border-radius: 50%;
+      border: 1px solid var(--gold); display: grid; place-items: center;
+      color: var(--gold); font-family: 'Noto Serif', serif; font-style: italic; font-size: 22px;
+    }
+    .gt-footer__cols { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2rem; }
+    .gt-footer__h { color: var(--gold-pale); margin-bottom: 1rem; }
+    .gt-footer__p { color: rgba(255,248,245,0.6); margin: 0; font-size: 14px; line-height: 1.8; }
+    .gt-footer__links { display: flex; flex-direction: column; gap: 0.6rem; }
+    .gt-footer__links a { color: rgba(255,248,245,0.7); font-size: 14px; transition: color 0.2s ease; }
+    .gt-footer__links a:hover { color: var(--gold); }
+    .gt-footer__base {
+      display: flex; justify-content: space-between; padding-top: 2rem;
+      color: rgba(255,248,245,0.4); flex-wrap: wrap; gap: 1rem;
+      font-size: 13px;
+    }
+
+    /* ═══════════════════════════════════════════
+       RESPONSIVE
+    ═══════════════════════════════════════════ */
+    @media (max-width: 1024px) {
+      .gt-about__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .gt-spaces__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .gt-space:nth-child(1), .gt-space:nth-child(2) { margin-top: 0; }
+      .gt-gallery__grid { grid-template-columns: repeat(2, 1fr); }
+      .gt-packages__grid { grid-template-columns: 1fr; max-width: 480px; margin-left: auto; margin-right: auto; }
+      .gt-pkg--featured { transform: none; }
+      .gt-pkg--featured:hover { transform: translateY(-4px); }
+      .gt-vendors__grid { grid-template-columns: repeat(2, 1fr); }
+      .gt-faq__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .gt-book__grid { grid-template-columns: 1fr; gap: 3rem; }
+      .gt-footer__inner { grid-template-columns: 1fr; gap: 2.5rem; }
+      .gt-hero__strip-inner { grid-template-columns: repeat(2, 1fr); }
+      .gt-hero__strip-item { border-left: none; padding: 0.5rem 1rem; }
+    }
+
+    @media (max-width: 768px) {
+      :root { --gutter: 1.25rem; }
+      .section { padding: 3.5rem 0; }
+      .gt-section-head { margin-bottom: 2.25rem; gap: 0.75rem; }
+
+      /* Inputs: 16px prevents iOS focus zoom */
+      .gt-field input, .gt-field select, .gt-field textarea { font-size: 16px; padding: 0.9rem 1rem; }
+
+      /* Drawer */
+      .gt-nav__drawer { padding: 5rem 1.5rem 2.5rem; gap: 1.5rem; }
+      .gt-nav__drawer-links { gap: 1.1rem; }
+      .gt-nav__drawer-links a { font-size: clamp(24px, 6.5vw, 34px); }
+
+      /* Hero */
+      .gt-hero__content { padding-top: 7rem; padding-bottom: 19rem; }
+      .gt-hero__panel { padding: 1.5rem 1.25rem 1.75rem; border-left-width: 1px; }
+      .gt-hero__watermark { font-size: 30vw; top: 16%; }
+      .gt-hero__lede { font-size: 16px; line-height: 1.65; margin-bottom: 2rem; }
+      .gt-hero__ctas { flex-direction: column; align-items: stretch; }
+      .gt-hero__ctas .btn { justify-content: center; padding: 1rem 1.4rem; }
+      .gt-hero__strip-inner { grid-template-columns: 1fr; gap: 0; padding: 0.5rem 0; }
+      .gt-hero__strip-item {
+        border-bottom: 1px solid rgba(184,137,58,0.18);
+        padding: 0.85rem 0.75rem; gap: 0.85rem;
+      }
+      .gt-hero__strip-item:last-child { border-bottom: none; }
+      .gt-hero__strip-num { font-size: 22px; }
+      .gt-hero__strip-d { font-size: 12.5px; line-height: 1.45; }
+
+      /* About */
+      .gt-about__media { min-height: 380px; }
+      .gt-about__img-1 { width: 80%; }
+      .gt-about__img-2 { width: 60%; bottom: 0; right: 0; }
+      .gt-about__bullets {
+        display: grid; grid-template-columns: repeat(2, 1fr);
+        gap: 0; border-top: 1px solid var(--outline-variant);
+      }
+      .gt-about__bullets li {
+        grid-template-columns: 1fr; gap: 0.35rem;
+        padding: 1rem 0.25rem; border-bottom: 1px solid var(--outline-variant);
+      }
+      .gt-about__b-k { font-size: 22px; }
+
+      /* Spaces */
+      .gt-space__num { font-size: 24px; }
+      .gt-space__img { aspect-ratio: 4/3; }
+
+      /* Stats */
+      .gt-stats { padding: 3.5rem 0; }
+      .gt-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 2.5rem 1.5rem; }
+      .gt-stat__ring { width: 120px; height: 120px; }
+      .gt-stat__n { font-size: 42px; }
+      .gt-stat__l { font-size: 11px; letter-spacing: 0.12em; }
+
+      /* Gallery */
+      .gt-gallery__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 160px; gap: 0.65rem; }
+      .gt-gallery__tile--wide { grid-column: span 2; }
+      .gt-gallery__tile--tall { grid-row: span 2; }
+
+      /* Packages */
+      .gt-pkg { padding: 2rem 1.5rem; }
+      .gt-pkg__price { font-size: 38px; }
+      .gt-pkg__cta { padding: 1rem 1.4rem; }
+
+      /* Vendors */
+      .gt-vendor { padding: 1.5rem; }
+      .gt-vendor__count { font-size: 28px; }
+
+      /* Testimonials */
+      .gt-testimonials { padding: 4rem 0; }
+      .gt-testimonials__q { font-size: 20px !important; line-height: 1.45; }
+      .gt-testimonials__mark { font-size: 72px; margin-bottom: 0.25rem; }
+      .gt-testimonials__nav { margin-top: 2rem; }
+
+      /* FAQ */
+      .gt-faq__q { gap: 0.85rem; padding: 1.25rem 0; }
+      .gt-faq__num { font-size: 18px; }
+      .gt-faq__icon { width: 32px; height: 32px; font-size: 16px; }
+      .gt-faq__a > p { padding-left: 0; }
+
+      /* Booking */
+      .gt-book__form { padding: 1.75rem 1.25rem; gap: 1rem; }
+      .gt-book__contact { gap: 1rem; margin-top: 2rem; }
+      .gt-book__contact li { grid-template-columns: 1fr; gap: 0.25rem; padding-bottom: 0.85rem; }
+      .gt-book__submit { padding: 1.05rem 1.4rem; }
+
+      /* Footer */
+      .gt-footer { padding: 3rem 0 1.5rem; }
+      .gt-footer__inner { padding-bottom: 2.5rem; gap: 2.25rem; }
+      .gt-footer__cols { grid-template-columns: 1fr 1fr; gap: 2rem 1.25rem; }
+      .gt-footer__base { flex-direction: column; align-items: flex-start; gap: 0.5rem; padding-top: 1.5rem; }
+    }
+
+    @media (max-width: 600px) {
+      .gt-book__row { grid-template-columns: 1fr; }
+    }
+
+    @media (max-width: 480px) {
+      .gt-hero__content { padding-top: 6rem; padding-bottom: 21rem; }
+      .gt-hero__watermark { font-size: 38vw; top: 18%; }
+      .gt-about__media { min-height: 320px; }
+      .gt-about__img-1 { width: 82%; }
+      .gt-stats__grid { grid-template-columns: repeat(2, 1fr); gap: 2rem 1rem; }
+      .gt-stat__ring { width: 108px; height: 108px; }
+      .gt-stat__n { font-size: 36px; }
+      .gt-gallery__grid { grid-template-columns: repeat(2, 1fr); grid-auto-rows: 130px; gap: 0.5rem; }
+      .gt-vendors__grid { grid-template-columns: 1fr; }
+      .gt-pkg { padding: 1.75rem 1.25rem; }
+      .gt-pkg__price { font-size: 34px; }
+      .gt-book__form { padding: 1.5rem 1rem; }
+      .gt-footer__cols { grid-template-columns: 1fr; gap: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+<!-- ═══ NAV ═══ -->
+<nav class="gt-nav" id="gt-nav">
+<div class="gt-nav__inner container">
+<a class="gt-nav__brand" href="#top">
+<img src="images/GTEC_logo.png" alt="Grand Terraza Event Center" class="gt-nav__logo" style="height:52px;width:auto;object-fit:contain;display:block"/>
+</a>
+<ul class="gt-nav__links">
+<li><a class="t-label" href="#about">About</a></li>
+<li><a class="t-label" href="#spaces">Spaces</a></li>
+<li><a class="t-label" href="#gallery">Gallery</a></li>
+<li><a class="t-label" href="#packages">Packages</a></li>
+<li><a class="t-label" href="#vendors">Vendors</a></li>
+<li><a class="t-label" href="#location">Location</a></li>
+<li><a class="t-label" href="#book">Contact</a></li>
+</ul>
+<a class="btn btn-primary gt-nav__cta" href="#book">Book the Venue</a>
+<button aria-expanded="false" aria-label="Open menu" class="gt-nav__toggle" id="nav-toggle">
+<span></span><span></span><span></span>
+</button>
+</div>
+</nav>
+<div class="gt-nav__drawer" id="nav-drawer">
+<ul class="gt-nav__drawer-links">
+<li><a href="#about"><span class="gold t-label" style="margin-right:1rem">01</span>About</a></li>
+<li><a href="#spaces"><span class="gold t-label" style="margin-right:1rem">02</span>Spaces</a></li>
+<li><a href="#gallery"><span class="gold t-label" style="margin-right:1rem">03</span>Gallery</a></li>
+<li><a href="#packages"><span class="gold t-label" style="margin-right:1rem">04</span>Packages</a></li>
+<li><a href="#vendors"><span class="gold t-label" style="margin-right:1rem">05</span>Vendors</a></li>
+<li><a href="#location"><span class="gold t-label" style="margin-right:1rem">06</span>Location</a></li>
+<li><a href="#book"><span class="gold t-label" style="margin-right:1rem">07</span>Contact</a></li>
+</ul>
+<a class="btn btn-gold" href="#book">Book the Venue</a>
+</div>
+<!-- ═══ HERO ═══ -->
+<header class="gt-hero" id="top">
+<div class="gt-hero__bg">
+<video class="gt-hero__img" autoplay muted loop playsinline preload="auto" poster="images/hero/hero.jpg" style="width:100%;height:100%;object-fit:cover;display:block">
+<source src="images/hero/hero_vid.mp4" type="video/mp4"/>
+<img alt="Grand Terraza Event Center" src="images/hero/hero.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+</video>
+<div class="gt-hero__scrim"></div>
+</div>
+<div class="gt-hero__content container">
+<div class="gt-hero__panel">
+<div class="t-eyebrow gt-hero__eyebrow fade-in">
+<span class="gt-dot"></span>  Taal, Batangas, Philippines
+    </div>
+<div class="gt-hero__title-stack fade-in">
+<h1 class="t-display-xl gt-hero__title gt-hero__title--a">
+      Where every <span class="italic-serif gold">milestone</span><br/>
+      becomes a <span class="italic-serif gold">memory.</span>
+</h1>
+<h1 class="t-display-xl gt-hero__title gt-hero__title--b">
+<span class="italic-serif gold">Grand Terraza</span><br/>
+      Event Center
+</h1>
+</div>
+<p class="t-body-lg gt-hero__lede fade-in">
+      The grandest and most sought-after event venue in the South —
+      crafted for weddings, galas, and every celebration that deserves to be remembered.
+    </p>
+<div class="gt-hero__ctas fade-in">
+<a class="btn btn-primary" href="#book">Schedule a Tour</a>
+<a class="btn btn-ghost gt-hero__ghost" href="#spaces">Explore the Estate →</a>
+</div>
+</div>
+</div>
+<div class="gt-hero__strip">
+<div class="container gt-hero__strip-inner">
+<div class="gt-hero__strip-item">
+<div class="gt-hero__strip-num">01</div>
+<div>
+<div class="t-label" style="color:var(--gold-pale)">Weddings</div>
+<div class="gt-hero__strip-d">Ceremony, reception, and a private bridal suite under one roof.</div>
+</div>
+</div>
+<div class="gt-hero__strip-item">
+<div class="gt-hero__strip-num">02</div>
+<div>
+<div class="t-label" style="color:var(--gold-pale)">Corporate Galas</div>
+<div class="gt-hero__strip-d">A 350-seat hall fit for keynotes, awards, and product reveals.</div>
+</div>
+</div>
+<div class="gt-hero__strip-item">
+<div class="gt-hero__strip-num">03</div>
+<div>
+<div class="t-label" style="color:var(--gold-pale)">Quinceañeras</div>
+<div class="gt-hero__strip-d">Heritage celebrations with a dedicated grand staircase entrance.</div>
+</div>
+</div>
+<div class="gt-hero__strip-item">
+<div class="gt-hero__strip-num">04</div>
+<div>
+<div class="t-label" style="color:var(--gold-pale)">Milestone Parties</div>
+<div class="gt-hero__strip-d">Birthdays, anniversaries, and the in-betweens worth dressing up for.</div>
+</div>
+</div>
+</div>
+</div>
+</header>
+<!-- ═══ ABOUT ═══ -->
+<section class="section gt-about" id="about">
+<div class="container gt-about__grid">
+<div class="gt-about__media">
+<img alt="Grand Terraza exterior at twilight" class="shape-arch gt-about__img-1" src="images/about/about-portrait.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+<img alt="Table setting detail" class="shape-rounded gt-about__img-2" src="images/about/about-detail.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+<div class="gold-ring" style="width:220px;height:220px;top:-30px;right:-40px"></div>
+<div class="gold-ring" style="width:90px;height:90px;bottom:80px;left:-20px"></div>
+</div>
+<div class="gt-about__copy">
+<div class="t-eyebrow">— Welcome to the estate</div>
+<h2 class="t-headline-lg">
+        We host the <span class="italic-serif gold">moments</span> you'll spend a lifetime remembering.
+      </h2>
+<p class="t-body-lg">
+        Grand Terraza has become Batangas’ most sought-after address for weddings
+        and milestone celebrations. One estate, one team, and no shortcuts.
+      </p>
+<ul class="gt-about__bullets">
+<li>
+<span class="italic-serif gold gt-about__b-k">Casa Grande</span>
+<span class="t-body-md">fully air-conditioned Grand Hall</span>
+</li>
+<li>
+<span class="italic-serif gold gt-about__b-k">350 guests</span>
+<span class="t-body-md">seated capacity, full event coordination</span>
+</li>
+<li>
+<span class="italic-serif gold gt-about__b-k">6 rooms</span>
+<span class="t-body-md">air-conditioned guest accommodations on-site</span>
+</li>
+</ul>
+<a class="btn btn-ghost" href="#book">Visit the Estate</a>
+</div>
+</div>
+</section>
+<!-- ═══ SPACES ═══ -->
+<section class="section gt-spaces" id="spaces" style="background:var(--surface-container-low)">
+<div class="container">
+<div class="gt-section-head">
+<div class="t-eyebrow">— The spaces</div>
+<h2 class="t-headline-lg">Four venues. <span class="italic-serif gold">One estate.</span> Every kind of celebration.</h2>
+<p class="t-body-lg" style="max-width:620px">
+        Book any single space, or open all four for a full takeover. The estate flows
+        naturally from ceremony to cocktails to dancing — without anyone moving their car.
+      </p>
+</div>
+<div class="gt-spaces__grid">
+<article class="gt-space">
+<img alt="The Grand Hall interior" class="gt-space__img shape-arch" src="images/spaces/space-grand-hall.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+<div class="gt-space__body">
+<div class="gt-space__head">
+<h3 class="t-headline-md">The Grand Hall</h3>
+<div class="gt-space__num italic-serif gold">01</div>
+</div>
+<div class="gt-space__meta">
+<span class="t-label">350 seated · 500 mingling</span>
+<span class="gt-space__dot"></span>
+<span class="t-label">8,400 sq ft</span>
+</div>
+<p class="t-body-md">Twenty-foot ceilings, three crystal chandeliers, and a stage built for first dances and keynote speeches alike.</p>
+<a class="gt-space__link t-label" href="#book">Reserve this space <span aria-hidden="">→</span></a>
+</div>
+</article>
+<article class="gt-space">
+<img alt="The Garden Terraza" class="gt-space__img shape-arch" src="images/spaces/space-garden-terraza.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+<div class="gt-space__body">
+<div class="gt-space__head">
+<h3 class="t-headline-md">The Garden Terraza</h3>
+<div class="gt-space__num italic-serif gold">02</div>
+</div>
+<div class="gt-space__meta">
+<span class="t-label">180 seated ceremony</span>
+<span class="gt-space__dot"></span>
+<span class="t-label">Open-air pavilion</span>
+</div>
+<p class="t-body-md">A covered limestone terrace overlooking the rose garden and reflecting pool. String lights stay year-round.</p>
+<a class="gt-space__link t-label" href="#book">Reserve this space <span aria-hidden="">→</span></a>
+</div>
+</article>
+<article class="gt-space">
+<img alt="The Bridal Quarters" class="gt-space__img shape-arch" src="images/spaces/space-bridal-quarters.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+<div class="gt-space__body">
+<div class="gt-space__head">
+<h3 class="t-headline-md">The Bridal Quarters</h3>
+<div class="gt-space__num italic-serif gold">03</div>
+</div>
+<div class="gt-space__meta">
+<span class="t-label">12-person suite</span>
+<span class="gt-space__dot"></span>
+<span class="t-label">900 sq ft</span>
+</div>
+<p class="t-body-md">Private wing with vanity stations, a steam-press, full bath, and a quiet room. Catered breakfast on the morning of.</p>
+<a class="gt-space__link t-label" href="#book">Reserve this space <span aria-hidden="">→</span></a>
+</div>
+</article>
+<article class="gt-space">
+<img alt="The Oak Pavilion" class="gt-space__img shape-arch" src="images/spaces/space-oak-pavilion.jpg" style="width:100%;height:100%;object-fit:cover;display:block"/>
+<div class="gt-space__body">
+<div class="gt-space__head">
+<h3 class="t-headline-md">The Oak Pavilion</h3>
+<div class="gt-space__num italic-serif gold">04</div>
+</div>
+<div class="gt-space__meta">
+<span class="t-label">120 cocktail</span>
+<span class="gt-space__dot"></span>
+<span class="t-label">2,200 sq ft</span>
+</div>
+<p class="t-body-md">Outdoor reception space tucked beneath century-old live oaks. Built-in bar and fire pit lounge.</p>
+<a class="gt-space__link t-label" href="#book">Reserve this space <span aria-hidden="">→</span></a>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- ═══ STATS ═══ -->
+<section class="gt-stats">
+<div class="container gt-stats__grid">
+<div class="gt-stat">
+<div class="gt-stat__ring"><span class="gt-stat__n">10</span></div>
+<div class="gt-stat__l">Acres of gardens</div>
+</div>
+<div class="gt-stat">
+<div class="gt-stat__ring"><span class="gt-stat__n">350</span></div>
+<div class="gt-stat__l">Seated capacity</div>
+</div>
+<div class="gt-stat">
+<div class="gt-stat__ring"><span class="gt-stat__n">800+</span></div>
+<div class="gt-stat__l">Events hosted</div>
+</div>
+<div class="gt-stat">
+<div class="gt-stat__ring"><span class="gt-stat__n">12</span></div>
+<div class="gt-stat__l">In-house specialists</div>
+</div>
+</div>
+</section>
+<!-- ═══ GALLERY ═══ -->
+<section class="section gt-gallery" id="gallery">
+<div class="container">
+<div class="gt-section-head text-center" style="align-items:center;max-width:none">
+<div class="flourish t-label">A look around</div>
+<h2 class="t-headline-lg" style="margin-top:1rem">
+        A gallery of <span class="italic-serif gold">unforgettable</span> evenings.
+      </h2>
+</div>
+<div class="gt-gallery__grid">
+<div class="gt-gallery__tile gt-gallery__tile--tall">
+<img alt="Ceremony arch" class="shape-rounded" src="images/gallery/gallery-01-ceremony.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+<div class="gt-gallery__tile gt-gallery__tile--wide">
+<img alt="Long-table reception" class="shape-rounded" src="images/gallery/gallery-02-reception.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+<div class="gt-gallery__tile gt-gallery__tile--tall">
+<img alt="Bride at golden hour" class="shape-stadium-vert" src="images/gallery/gallery-03-bride.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+<div class="gt-gallery__tile">
+<img alt="String lights in the Oak Pavilion" class="shape-rounded" src="images/gallery/gallery-04-lights.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+<div class="gt-gallery__tile">
+<img alt="Floral arrangement" class="shape-rounded" src="images/gallery/gallery-05-florals.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+<div class="gt-gallery__tile gt-gallery__tile--tall">
+<img alt="First dance" class="shape-arch" src="images/gallery/gallery-06-dance.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+<div class="gt-gallery__tile gt-gallery__tile--wide">
+<img alt="Tablescape in gold and plum" class="shape-rounded" src="images/gallery/gallery-07-tablescape.jpg" style="width:100%;height:100%;width:100%;height:100%;object-fit:cover;display:block"/>
+</div>
+</div>
+<div class="text-center" style="margin-top:3rem">
+<a class="btn btn-ghost" href="#">View Full Portfolio</a>
+</div>
+</div>
+</section>
+<!-- ═══ PACKAGES ═══ -->
+<section class="section gt-packages" id="packages" style="background:var(--surface-container-low)">
+<div class="container">
+<div class="gt-section-head">
+<div class="t-eyebrow">— Packages</div>
+<h2 class="t-headline-lg">Three thoughtful tiers. <span class="italic-serif gold">Custom-fit.</span></h2>
+<p class="t-body-lg" style="max-width:580px">
+        Every package is a starting point. Add ceremony musicians, a horse-drawn carriage,
+        or open the Friday rehearsal dinner to the family — we'll handle it.
+      </p>
+</div>
+<div class="gt-packages__grid">
+<!-- Garden -->
+<article class="gt-pkg">
+<h3 class="t-headline-md">The Garden</h3>
+<div class="gt-pkg__sub">Intimate · up to 80 guests</div>
+<div class="gt-pkg__price-row">
+<span class="italic-serif gt-pkg__price">₱150,000</span>
+<span class="t-body-md">/ Saturday</span>
+</div>
+<ul class="gt-pkg__items">
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Garden Terraza ceremony space</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">6-hour event window</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Bridal quarters (4 hours)</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Dedicated venue manager</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Setup &amp; breakdown crew</span></li>
+</ul>
+<a class="btn btn-ghost gt-pkg__cta" href="#book">Inquire about The Garden</a>
+</article>
+<!-- Estate (featured) -->
+<article class="gt-pkg gt-pkg--featured">
+<div class="gt-pkg__ribbon">Most chosen</div>
+<h3 class="t-headline-md">The Estate</h3>
+<div class="gt-pkg__sub">Signature · up to 220 guests</div>
+<div class="gt-pkg__price-row">
+<span class="italic-serif gt-pkg__price">₱300,000</span>
+<span class="t-body-md">/ Saturday</span>
+</div>
+<ul class="gt-pkg__items">
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Garden Terraza + Grand Hall</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">10-hour event window</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Bridal quarters (full day)</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">In-house florals consult</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Day-of coordinator</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Round-trip valet for 100</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Champagne tower service</span></li>
+</ul>
+<a class="btn btn-primary gt-pkg__cta" href="#book">Inquire about The Estate</a>
+</article>
+<!-- Heritage -->
+<article class="gt-pkg">
+<h3 class="t-headline-md">The Heritage</h3>
+<div class="gt-pkg__sub">Full takeover · up to 350 guests</div>
+<div class="gt-pkg__price-row">
+<span class="italic-serif gt-pkg__price">₱500,000</span>
+<span class="t-body-md">/ weekend</span>
+</div>
+<ul class="gt-pkg__items">
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">All four venues, exclusive access</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Friday rehearsal dinner included</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Sunday brunch on the terrace</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">In-house planning team (3 mo)</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Full A/V &amp; stage lighting</span></li>
+<li><span class="gt-pkg__check">✦</span><span class="t-body-md">Bridal quarters (overnight)</span></li>
+</ul>
+<a class="btn btn-ghost gt-pkg__cta" href="#book">Inquire about The Heritage</a>
+</article>
+</div>
+<div class="gt-packages__foot t-body-md">
+      All packages include service tax and gratuity.
+      <a class="gold" href="#book" style="text-decoration:underline">Request the full pricing PDF →</a>
+</div>
+</div>
+</section>
+<!-- ═══ VENDORS ═══ -->
+<section class="section gt-vendors" id="vendors">
+<div class="container">
+<div class="gt-section-head">
+<div class="t-eyebrow">— The preferred circle</div>
+<h2 class="t-headline-lg">Sixty trusted vendors. <span class="italic-serif gold">One short list.</span></h2>
+<p class="t-body-lg" style="max-width:580px">
+        We've worked with these teams across hundreds of events. Book through us and inherit
+        the relationship — pricing, scheduling, and last-minute saves included.
+      </p>
+</div>
+<div class="gt-vendors__grid">
+<article class="gt-vendor">
+<div class="gt-vendor__row">
+<h3 class="t-headline-md">Florists</h3>
+<span class="gt-vendor__count">8</span>
+</div>
+<p class="t-body-md">From bold and architectural to soft and garden-style.</p>
+<div class="gt-vendor__avatars">
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="gt-vendor__more t-label">+4</div>
+</div>
+</article>
+<article class="gt-vendor">
+<div class="gt-vendor__row">
+<h3 class="t-headline-md">Officiants</h3>
+<span class="gt-vendor__count">6</span>
+</div>
+<p class="t-body-md">Religious, secular, bilingual — find the voice for your ceremony.</p>
+<div class="gt-vendor__avatars">
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="gt-vendor__more t-label">+2</div>
+</div>
+</article>
+<article class="gt-vendor">
+<div class="gt-vendor__row">
+<h3 class="t-headline-md">Beauty</h3>
+<span class="gt-vendor__count">11</span>
+</div>
+<p class="t-body-md">On-site hair, makeup, and grooming for the entire wedding party.</p>
+<div class="gt-vendor__avatars">
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="gt-vendor__more t-label">+7</div>
+</div>
+</article>
+<article class="gt-vendor">
+<div class="gt-vendor__row">
+<h3 class="t-headline-md">Photographers</h3>
+<span class="gt-vendor__count">14</span>
+</div>
+<p class="t-body-md">Editorial, documentary, and film-first photographers in our circle.</p>
+<div class="gt-vendor__avatars">
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="gt-vendor__more t-label">+10</div>
+</div>
+</article>
+<article class="gt-vendor">
+<div class="gt-vendor__row">
+<h3 class="t-headline-md">Caterers</h3>
+<span class="gt-vendor__count">9</span>
+</div>
+<p class="t-body-md">Tex-Mex, plated French, family-style — a kitchen for every menu.</p>
+<div class="gt-vendor__avatars">
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="gt-vendor__more t-label">+5</div>
+</div>
+</article>
+<article class="gt-vendor">
+<div class="gt-vendor__row">
+<h3 class="t-headline-md">DJs &amp; Bands</h3>
+<span class="gt-vendor__count">12</span>
+</div>
+<p class="t-body-md">Trios for cocktail hour, eight-piece bands for the dance floor.</p>
+<div class="gt-vendor__avatars">
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-cream gt-vendor__avatar"><span> </span></div>
+<div class="placeholder tone-gold gt-vendor__avatar"><span> </span></div>
+<div class="gt-vendor__more t-label">+8</div>
+</div>
+</article>
+</div>
+</div>
+</section>
+<!-- ═══ TESTIMONIALS ═══ -->
+<section class="gt-testimonials">
+<div class="container gt-testimonials__inner">
+<!-- Slide 1 -->
+<div class="gt-testimonials__slide is-active" id="tslide-0">
+<div class="gt-testimonials__mark">"</div>
+<blockquote class="gt-testimonials__q">
+        Our planner walked us through every decision like a friend who'd done this a hundred times — because she had. The day itself felt like watching a film we'd helped write.
+      </blockquote>
+<div class="gt-testimonials__attr">
+<div class="italic-serif gold">Maya &amp; Daniel R.</div>
+<div class="t-label">Wedding · Spring 2025</div>
+</div>
+</div>
+<!-- Slide 2 -->
+<div class="gt-testimonials__slide" id="tslide-1">
+<div class="gt-testimonials__mark">"</div>
+<blockquote class="gt-testimonials__q">
+        We hosted our company's 25th anniversary gala in the Grand Hall and the in-house team handled everything from valet to closing toast. Three of our board members have booked their daughters' weddings since.
+      </blockquote>
+<div class="gt-testimonials__attr">
+<div class="italic-serif gold">Eduardo Vázquez</div>
+<div class="t-label">CEO, Vázquez Holdings</div>
+</div>
+</div>
+<!-- Slide 3 -->
+<div class="gt-testimonials__slide" id="tslide-2">
+<div class="gt-testimonials__mark">"</div>
+<blockquote class="gt-testimonials__q">
+        The estate is beautiful, yes — but what sold us was the quiet. No other event upstairs, no rushed turnover. Just our family, all weekend.
+      </blockquote>
+<div class="gt-testimonials__attr">
+<div class="italic-serif gold">Priya &amp; Anand K.</div>
+<div class="t-label">Three-day celebration · Autumn 2024</div>
+</div>
+</div>
+<!-- Navigation dots -->
+<div class="gt-testimonials__nav">
+<button aria-label="Testimonial 1" class="gt-testimonials__dot is-active" data-index="0"></button>
+<button aria-label="Testimonial 2" class="gt-testimonials__dot" data-index="1"></button>
+<button aria-label="Testimonial 3" class="gt-testimonials__dot" data-index="2"></button>
+</div>
+</div>
+</section>
+<!-- ═══ FAQ ═══ -->
+<section class="section gt-faq" id="faq">
+<div class="container gt-faq__grid">
+<div>
+<div class="t-eyebrow">— Before you ask</div>
+<h2 class="t-headline-lg" style="margin-top:1rem">
+        Questions, <span class="italic-serif gold">answered.</span>
+</h2>
+<p class="t-body-lg" style="margin-top:1rem">
+        Still curious? Schedule a tour and we'll walk you through every detail in person —
+        tea and pastries on the terrace included.
+      </p>
+<a class="btn btn-ghost" href="#book" style="margin-top:1.5rem">Book a Tour</a>
+</div>
+<div class="gt-faq__list">
+<div class="gt-faq__item is-open">
+<button aria-expanded="true" class="gt-faq__q">
+<span class="italic-serif gold gt-faq__num">01</span>
+<span class="gt-faq__qt">How far in advance should we book?</span>
+<span class="gt-faq__icon">−</span>
+</button>
+<div class="gt-faq__a">
+<p class="t-body-md">Saturdays in peak season (March–May, September–November) typically book 14–18 months out. Off-peak Fridays and Sundays are often available within 6 months.</p>
+</div>
+</div>
+<div class="gt-faq__item">
+<button aria-expanded="false" class="gt-faq__q">
+<span class="italic-serif gold gt-faq__num">02</span>
+<span class="gt-faq__qt">Can we use outside vendors?</span>
+<span class="gt-faq__icon">+</span>
+</button>
+<div class="gt-faq__a">
+<p class="t-body-md">Yes — outside vendors are welcome with a one-time ₱23,000 outside-vendor fee. Caterers must be insured and present a current health certificate. Our preferred-vendor list waives the fee.</p>
+</div>
+</div>
+<div class="gt-faq__item">
+<button aria-expanded="false" class="gt-faq__q">
+<span class="italic-serif gold gt-faq__num">03</span>
+<span class="gt-faq__qt">What's included in the rental fee?</span>
+<span class="gt-faq__icon">+</span>
+</button>
+<div class="gt-faq__a">
+<p class="t-body-md">Tables, chiavari chairs, basic linens, A/V system, sound system, climate control, parking for 200, security, and a dedicated venue manager from arrival to last guest out.</p>
+</div>
+</div>
+<div class="gt-faq__item">
+<button aria-expanded="false" class="gt-faq__q">
+<span class="italic-serif gold gt-faq__num">04</span>
+<span class="gt-faq__qt">Do you have rain or weather backup?</span>
+<span class="gt-faq__icon">+</span>
+</button>
+<div class="gt-faq__a">
+<p class="t-body-md">The Garden Terraza is fully covered limestone. The Grand Hall serves as primary backup for any outdoor portion. Decisions are made by 10am day-of in collaboration with you.</p>
+</div>
+</div>
+<div class="gt-faq__item">
+<button aria-expanded="false" class="gt-faq__q">
+<span class="italic-serif gold gt-faq__num">05</span>
+<span class="gt-faq__qt">Are pets and children welcome?</span>
+<span class="gt-faq__icon">+</span>
+</button>
+<div class="gt-faq__a">
+<p class="t-body-md">Absolutely. Many of our couples include their dog in the ceremony — we have a list of vetted pet handlers. The bridal quarters has a quiet room set up for nursing or napping children.</p>
+</div>
+</div>
+<div class="gt-faq__item">
+<button aria-expanded="false" class="gt-faq__q">
+<span class="italic-serif gold gt-faq__num">06</span>
+<span class="gt-faq__qt">What is your deposit and cancellation policy?</span>
+<span class="gt-faq__icon">+</span>
+</button>
+<div class="gt-faq__a">
+<p class="t-body-md">A 25% non-refundable deposit secures your date. Remaining balance is due 60 days before the event. Cancellations within 60 days forfeit the full balance, but dates can be transferred once at no fee.</p>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- ═══ LOCATION MAP ═══ -->
+<section class="section gt-map" id="location">
+<div class="container">
+<div class="gt-section-head text-center" style="align-items:center;max-width:none">
+<div class="t-eyebrow">— Find us</div>
+<h2 class="t-headline-lg" style="margin-top:1rem">
+      Where <span class="italic-serif gold">memories</span> are made.
+    </h2>
+<p class="t-body-lg" style="max-width:560px;margin:0 auto">
+      Grand Terraza Event Center · Brgy. Balisong, Taal, Batangas, Philippines
+    </p>
+</div>
+<iframe
+  class="gt-map__embed"
+  src="https://maps.google.com/maps?q=Grand+Terraza+Event+Center,+Brgy.+Balisong,+Taal,+Batangas,+Philippines&output=embed&z=15"
+  allowfullscreen=""
+  loading="lazy"
+  referrerpolicy="no-referrer-when-downgrade"
+  title="Grand Terraza Event Center location on Google Maps"
+></iframe>
+<div class="text-center" style="margin-top:2rem">
+<a
+  class="btn btn-ghost"
+  href="https://maps.google.com/maps?q=Grand+Terraza+Event+Center,+Brgy.+Balisong,+Taal,+Batangas,+Philippines"
+  target="_blank"
+  rel="noopener noreferrer"
+>Open in Google Maps →</a>
+</div>
+</div>
+</section>
+<!-- ═══ BOOKING ═══ -->
+<section class="section gt-book" id="book">
+<div class="container gt-book__grid">
+<div class="gt-book__left">
+<div class="t-eyebrow" style="color:var(--gold-soft)">— Schedule a tour</div>
+<h2 class="t-headline-lg gt-book__title">
+        Let's plan the <span class="italic-serif" style="color:var(--gold-soft)">day they'll talk about</span> for years.
+      </h2>
+<p class="t-body-lg gt-book__lede">
+        Tell us a little about your event. We'll respond within one business day with availability,
+        pricing, and a private tour invitation.
+      </p>
+<ul class="gt-book__contact">
+<li>
+<span class="t-label">Visit</span>
+<span>Brgy. Balisong, Taal, Batangas, Philippines</span>
+</li>
+<li>
+<span class="t-label">Call</span>
+<span>+63 917 110 1371</span>
+</li>
+<li>
+<span class="t-label">Write</span>
+<span>grandterrazaeventcenter@gmail.com</span>
+</li>
+</ul>
+</div>
+<form class="gt-book__form" id="booking-form" novalidate="">
+<div class="gt-book__row">
+<label class="gt-field">
+<span class="t-label">Your name</span>
+<input name="name" placeholder="Jane Doe" required="" type="text"/>
+</label>
+<label class="gt-field">
+<span class="t-label">Email</span>
+<input name="email" placeholder="jane@example.com" required="" type="email"/>
+</label>
+</div>
+<div class="gt-book__row">
+<label class="gt-field">
+<span class="t-label">Phone</span>
+<input name="phone" placeholder="(940) 555-0123" type="tel"/>
+</label>
+<label class="gt-field">
+<span class="t-label">Event type</span>
+<select name="event_type">
+<option>Wedding</option>
+<option>Corporate Gala</option>
+<option>Quinceañera</option>
+<option>Milestone Birthday</option>
+<option>Other</option>
+</select>
+</label>
+</div>
+<div class="gt-book__row">
+<label class="gt-field">
+<span class="t-label">Guests (approx)</span>
+<input min="1" name="guests" placeholder="120" type="number"/>
+</label>
+<label class="gt-field">
+<span class="t-label">Preferred date</span>
+<input name="event_date" type="date"/>
+</label>
+</div>
+<label class="gt-field">
+<span class="t-label">Tell us about your vision</span>
+<textarea name="notes" placeholder="A spring garden ceremony, family-style dinner under the oaks, mariachi at sunset…" rows="4"></textarea>
+</label>
+<button class="btn btn-gold gt-book__submit" id="book-btn" type="submit">
+        Request a Tour
+      </button>
+<div class="t-body-md gt-book__fine">
+        We respond within one business day. No automated messages, no mailing-list traps.
+      </div>
+</form>
+</div>
+</section>
+<!-- ═══ FOOTER ═══ -->
+<footer class="gt-footer">
+<div class="container gt-footer__inner">
+<div>
+<div class="gt-footer__brand" style="margin-bottom:1.5rem">
+<img src="images/GTEC_logo.png" alt="Grand Terraza Event Center" style="height:64px;width:auto;object-fit:contain;filter:brightness(0) invert(1);opacity:0.9"/>
+<div>
+<div class="t-headline-md" style="color:var(--surface);font-size:1.4rem">
+            Grand <span class="italic-serif gold">Terraza</span>
+</div>
+<div style="color:rgba(255,255,255,0.6);font-size:14px;margin-top:0.25rem">
+            An estate for life's biggest evenings.
+          </div>
+</div>
+</div>
+</div>
+<div class="gt-footer__cols">
+<div>
+<div class="t-label gt-footer__h">Visit</div>
+<p class="gt-footer__p">
+          Brgy. Balisong, Taal<br/>
+          Batangas, Philippines
+</p>
+</div>
+<div>
+<div class="t-label gt-footer__h">Hours</div>
+<p class="gt-footer__p">
+          Mon–Sat  9am–6pm<br/>
+          Sun  by appointment<br/>
+          +63 917 110 1371
+</p>
+</div>
+<div>
+<div class="t-label gt-footer__h">Connect</div>
+<ul class="gt-footer__links">
+<li><a href="https://www.facebook.com/profile.php?id=100064182815858" target="_blank" rel="noopener">Facebook · Grand Terraza Event Center</a></li>
+<li><a href="mailto:grandterrazaeventcenter@gmail.com">grandterrazaeventcenter@gmail.com</a></li>
+<li><a href="tel:+639171101371">+63 917 110 1371</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="gt-footer__base container">
+<span>© 2026 Grand Terraza Event Center · All rights reserved</span>
+<span>Taal, Batangas, Philippines</span>
+</div>
+</footer>
+<script>
+  // ─── Nav: scroll + mobile hamburger ───
+  const nav = document.getElementById('gt-nav');
+  const toggle = document.getElementById('nav-toggle');
+  const drawer = document.getElementById('nav-drawer');
+  let navOpen = false;
+
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('gt-nav--scrolled', window.scrollY > 24);
+  });
+
+  function setNavOpen(open) {
+    navOpen = open;
+    nav.classList.toggle('gt-nav--open', open);
+    drawer.classList.toggle('is-open', open);
+    toggle.setAttribute('aria-expanded', open);
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle.addEventListener('click', () => setNavOpen(!navOpen));
+
+  drawer.querySelectorAll('a').forEach(a => {
+    a.addEventListener('click', () => setNavOpen(false));
+  });
+
+  // ─── Testimonials carousel ───
+  let testimonialIdx = 0;
+  const slides = document.querySelectorAll('.gt-testimonials__slide');
+  const dots = document.querySelectorAll('.gt-testimonials__dot');
+
+  function showTestimonial(idx) {
+    slides.forEach((s, i) => s.classList.toggle('is-active', i === idx));
+    dots.forEach((d, i) => d.classList.toggle('is-active', i === idx));
+    testimonialIdx = idx;
+  }
+
+  dots.forEach(dot => {
+    dot.addEventListener('click', () => showTestimonial(parseInt(dot.dataset.index)));
+  });
+
+  // Auto-advance every 6s
+  setInterval(() => {
+    showTestimonial((testimonialIdx + 1) % slides.length);
+  }, 6000);
+
+  // ─── FAQ accordion ───
+  document.querySelectorAll('.gt-faq__q').forEach(btn => {
+    btn.addEventListener('click', () => {
+      const item = btn.closest('.gt-faq__item');
+      const isOpen = item.classList.contains('is-open');
+      // Close all
+      document.querySelectorAll('.gt-faq__item').forEach(el => {
+        el.classList.remove('is-open');
+        el.querySelector('.gt-faq__icon').textContent = '+';
+        el.querySelector('.gt-faq__q').setAttribute('aria-expanded', 'false');
+      });
+      // Open clicked if it was closed
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.querySelector('.gt-faq__icon').textContent = '−';
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+  // ─── Booking form ───
+  const bookingForm = document.getElementById('booking-form');
+  const bookBtn = document.getElementById('book-btn');
+
+  bookingForm.addEventListener('submit', e => {
+    e.preventDefault();
+    bookBtn.textContent = '✓ Inquiry received — see you soon';
+    bookBtn.disabled = true;
+    bookBtn.style.opacity = '0.85';
+    setTimeout(() => {
+      bookBtn.textContent = 'Request a Tour';
+      bookBtn.disabled = false;
+      bookBtn.style.opacity = '';
+      bookingForm.reset();
+    }, 4000);
+  });
+</script>
+</body>
+</html>
